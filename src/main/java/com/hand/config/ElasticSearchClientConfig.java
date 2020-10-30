@@ -15,6 +15,10 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ElasticSearchClientConfig {
 
+    /**
+     * 构建高级客户端对象
+     * @return 返回客户端对象
+     */
     @Bean
     public RestHighLevelClient restHighLevelClient() {
         return new RestHighLevelClient(

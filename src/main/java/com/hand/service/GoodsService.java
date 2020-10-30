@@ -1,7 +1,7 @@
 package com.hand.service;
 
 import com.alibaba.fastjson.JSON;
-import com.hand.entity.Content;
+import com.hand.entity.Goods;
 import com.hand.utils.ParseUtils;
 import org.elasticsearch.action.bulk.BulkRequest;
 import org.elasticsearch.action.bulk.BulkResponse;
@@ -34,24 +34,24 @@ import java.util.Map;
  * @date 2020-10-29 17:39
  */
 @Service
-public class ContentService {
+public class GoodsService {
 
     @Autowired
     private RestHighLevelClient restHighLevelClient;
 
     /**
-     * 解析数据存入es中
+     * 解析商品数据存入es中
      *
      * @param keywords 关键字
      * @return 返回结果
      * @throws Exception 异常
      */
-    public Boolean parseContent(String keywords) throws Exception {
-        List<Content> contents = new ParseUtils().parseJd(keywords);
+    public Boolean parseGoods(String keywords) throws Exception {
+        List<Goods> goods = new ParseUtils().parseJd(keywords);
         BulkRequest bulkRequest = new BulkRequest();
         bulkRequest.timeout(TimeValue.timeValueSeconds(2));
-        for (int i = 0; i < contents.size(); i++) {
-            bulkRequest.add(new IndexRequest("jd_goods").source(JSON.toJSONString(contents.get(i)), XContentType.JSON));
+        for (int i = 0; i < goods.size(); i++) {
+            bulkRequest.add(new IndexRequest("jd_goods").source(JSON.toJSONString(goods.get(i)), XContentType.JSON));
         }
         BulkResponse bulkResponse = restHighLevelClient.bulk(bulkRequest, RequestOptions.DEFAULT);
         return !bulkResponse.hasFailures();
@@ -92,6 +92,15 @@ public class ContentService {
         return arrayList;
     }
 
+    /**
+     * 搜索内容高亮显示
+     *
+     * @param keyword    关键字
+     * @param pageNumber 页码
+     * @param pageSize   每页个数
+     * @return 集合
+     * @throws IOException IO异常
+     */
     public List<Map<String, Object>> searchContentHighlighter(String keyword, int pageNumber, int pageSize) throws IOException {
         if (pageNumber <= 1) {
             pageNumber = 1;

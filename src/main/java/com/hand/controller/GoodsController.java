@@ -1,6 +1,6 @@
 package com.hand.controller;
 
-import com.hand.service.ContentService;
+import com.hand.service.GoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,21 +17,21 @@ import java.util.Map;
  * @date 2020-10-29 19:28
  */
 @RestController
-public class ContentController {
+public class GoodsController {
 
     @Autowired
-    private ContentService contentService;
+    private GoodsService goodsService;
 
     @GetMapping("/parse/{keyword}")
     public Boolean parse(@PathVariable("keyword") String keyword) throws Exception {
-        return contentService.parseContent(keyword);
+        return goodsService.parseGoods(keyword);
     }
 
     @GetMapping("/search/{keyword}/{pageNumber}/{pageSize}")
     public List<Map<String, Object>> search(@PathVariable("keyword") String keyword, @PathVariable("pageNumber") int pageNumber, @PathVariable("pageSize") int pageSize) throws IOException {
         // 普通查询结果
-        // return contentService.searchContentPage(keyword, pageNumber, pageSize);
+        // return goodsService.searchContentPage(keyword, pageNumber, pageSize);
         // 带有高亮显示的查询结果
-        return contentService.searchContentHighlighter(keyword, pageNumber, pageSize);
+        return goodsService.searchContentHighlighter(keyword, pageNumber, pageSize);
     }
 }

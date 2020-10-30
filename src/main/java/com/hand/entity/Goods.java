@@ -9,15 +9,15 @@ import org.springframework.stereotype.Component;
  * @date 2020-10-29 17:11
  */
 @Component
-public class Content {
+public class Goods {
     private String title;
     private String price;
     private String img;
 
-    public Content() {
+    public Goods() {
     }
 
-    public Content(String title, String price, String img) {
+    public Goods(String title, String price, String img) {
         this.title = title;
         this.price = price;
         this.img = img;
