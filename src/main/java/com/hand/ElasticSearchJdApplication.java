@@ -7,10 +7,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author HD
  */
 @SpringBootApplication
-public class ElasticsearchJdApplication {
+public class ElasticSearchJdApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ElasticsearchJdApplication.class, args);
+        SpringApplication.run(ElasticSearchJdApplication.class, args);
     }
 
 }
